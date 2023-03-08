@@ -14,18 +14,18 @@ bool LinkedList::addNode(int id, string *data) {
 bool LinkedList::deleteNode(int id) {
     return false;
 }
-bool getNode(int id, Data *out) {
+bool LinkedList::getNode(int id, Data *out) {
     return false;
 }
-void printList(bool backward) {
+void LinkedList::printList(bool backward) {
     
 }
-int getCount() {
+int LinkedList::getCount() {
     return -1;
 }
-bool clearList() {
+bool LinkedList::clearList() {
     return false;
 }
-bool exists(int id) {
+bool LinkedList::exists(int id) {
     return false;
 }
