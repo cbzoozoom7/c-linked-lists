@@ -3,6 +3,8 @@
 //Created 8 Mar 2023
 #ifndef LINKEDLIST_H
     #define LINKEDLIST_H
+    #define DUMMY_LENGTH 5//TODO: Remove debug code
+    #include <iostream>
     #include "data.h"
     class LinkedList {
         public:
@@ -17,5 +19,6 @@
             bool exists(int);
         private:
             Node *head;
+            void printItem();
     };
 #endif
