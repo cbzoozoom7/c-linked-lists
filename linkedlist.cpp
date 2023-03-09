@@ -9,7 +9,7 @@ LinkedList::LinkedList() {
     current->next = nullptr;
     current->data.id = 0;
     current->data.data = "0";
-    for (int i = 0; i < DUMMY_LENGTH; i++) {
+    for (int i = 0; i < DUMMY_LENGTH-1; i++) {
         Node *newNode = new Node;
         current->next = newNode;
         newNode->prev = current;
@@ -19,8 +19,26 @@ LinkedList::LinkedList() {
         current->data.data = std::to_string(i + 1);
     }
 }
-LinkedList::~LinkedList() {
-    clearList();
+void LinkedList::printData(Data *d) {
+    std::cout << d->id << ": \t\"" << d->data << "\"" << std::endl;
+}
+void LinkedList::printList(bool backward) {
+    Node *current = head;
+    if (!backward) {
+        while (current) {
+            printData(&current->data);
+            current = current->next;
+        }
+    }
+    if (backward && current) {//getTail()?
+        while (current->next) {
+            current = current->next;
+        }
+        while (current) {
+            printData(&current->data);
+            current = current->prev;
+        }
+    }
 }
 bool LinkedList::addNode(int id, string *data) {
     return false;
@@ -31,18 +49,14 @@ bool LinkedList::deleteNode(int id) {
 bool LinkedList::getNode(int id, Data *out) {
     return false;
 }
-void LinkedList::printList(bool backward) {
-    Node *current = head;
-    while (current){
-        std::cout << current->data.id << ": \t\"" << current->data.data << "\"" << std::endl;
-        current = current->next;
-    }
-}
 int LinkedList::getCount() {
     return -1;
 }
 bool LinkedList::clearList() {
     return false;
+}
+LinkedList::~LinkedList() {
+    clearList();
 }
 bool LinkedList::exists(int id) {
     return false;

@@ -19,6 +19,6 @@
             bool exists(int);
         private:
             Node *head;
-            void printItem();
+            void printData(Data*);
     };
 #endif
