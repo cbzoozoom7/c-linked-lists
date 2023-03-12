@@ -43,7 +43,7 @@ bool LinkedList::setNode(Node* prev, Data* d) {
     if (*next) {
         (*next)->prev = newNode;
     }
-    *next = newNode;
+    *next = newNode; //it took me forever to figure out this syntax. I abandoned the double pointer idea on 2 seperate occasions while trying to figure it out. 
     set = true;
     return set;
 }

@@ -3,7 +3,6 @@
 //Created 8 Mar 2023
 #ifndef LINKEDLIST_H
     #define LINKEDLIST_H
-    #define DUMMY_LENGTH 5//TODO: Remove debug code
     #include <iostream>
     #include "data.h"
     class LinkedList {
@@ -19,8 +18,8 @@
             bool exists(int);
         private:
             Node *head;
-            void printData(Data*);
-            Node *findNode(int);
-            bool setNode(Node*, Data*);
+            void printData(Data*);//prints the id & data of the provided Data on one line.
+            Node *findNode(int);//returns a pointer to the Node with the given id.
+            bool setNode(Node*, Data*);//makes a new node with the given data & links it in, given a pointer to the previous node. Assumes that the provided Data is valid.
     };
 #endif
