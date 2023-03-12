@@ -124,7 +124,16 @@ int LinkedList::getCount() {
     return count;
 }
 bool LinkedList::clearList() {
-    return false;
+    bool cleared = false;
+    Node *current = head;
+    while (current) {
+        Node* next = current->next;
+        delete current;
+        current = next;
+    }
+    head = NULL;
+    cleared = true;
+    return cleared;
 }
 LinkedList::~LinkedList() {
     clearList();
