@@ -20,5 +20,6 @@
         private:
             Node *head;
             void printData(Data*);
+            bool addHead(Data*);
     };
 #endif

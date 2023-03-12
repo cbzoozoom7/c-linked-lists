@@ -3,7 +3,7 @@
 //Created 8 Mar 2023
 #include "linkedlist.h"
 LinkedList::LinkedList() {
-    //head = nullptr;
+    //head = NULL;
     head = new Node;
     Node *current = head;
     current->next = nullptr;
@@ -14,7 +14,7 @@ LinkedList::LinkedList() {
         current->next = newNode;
         newNode->prev = current;
         current = newNode;
-        current->next = nullptr;
+        current->next = NULL;
         current->data.id = i + 1;
         current->data.data = std::to_string(i + 1);
     }
@@ -40,8 +40,49 @@ void LinkedList::printList(bool backward) {
         }
     }
 }
+bool LinkedList::addHead(Data *d) {
+    Node *newNode = new Node;
+    newNode->data = *d;
+    newNode->next = head;
+    if (head) {
+        head->prev = newNode;
+    }
+    head = newNode;
+    return true;
+}
 bool LinkedList::addNode(int id, string *data) {
-    return false;
+    bool added = false;
+    if (id > 0 && *data != "") {
+        Data input;
+        input.id = id;
+        input.data = *data;
+        Node *current = head;
+        if (!current) {//empty list
+            added = addHead(&input);
+        } else if (id < current->data.id) {//new head
+            added = addHead(&input);
+        } else {
+            while (id > current->data.id && current->next) {
+                current = current->next;
+            }
+            if (id != current->data.id) {
+                if (id < current->data.id) {//allows me to use the same code for middle & tail
+                    current = current->prev;
+                }
+                Node* newNode = new Node;
+                newNode->data = input;
+                newNode->prev = current;
+                newNode->next = current->next;
+                if (current->next) {
+                    current->next->prev = newNode;
+                }
+                current->next = newNode;
+                added = true;
+            }
+        }
+        
+    }
+    return added;
 }
 bool LinkedList::deleteNode(int id) {
     return false;
