@@ -101,10 +101,28 @@ bool LinkedList::deleteNode(int id) {
     return deleted;
 }
 bool LinkedList::getNode(int id, Data *out) {
-    return false;
+    Node *gotten = findNode(id);
+    if (gotten) {
+        out->id = gotten->data.id;
+        out->data = gotten->data.data;
+    } else {
+        out->id = -1;
+        out->data = "";
+    }
+    return gotten;
 }
 int LinkedList::getCount() {
     return -1;
+    int count = 0;
+    Node *current = head;
+    if (current) {
+        count++;
+        while (current->next) {
+            current = current->next;
+            count++;
+        }
+    }
+    return count;
 }
 bool LinkedList::clearList() {
     return false;
