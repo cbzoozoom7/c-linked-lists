@@ -26,16 +26,26 @@ void LinkedList::printList(bool backward) {
         }
     }
 }
-bool LinkedList::addHead(Data *d) {
+bool LinkedList::setNode(Node* prev, Data* d) {
+    bool set = false;
     Node *newNode = new Node;
     newNode->data = *d;
-    newNode->next = head;
-    newNode->prev = NULL;
-    if (head) {
-        head->prev = newNode;
+    newNode->prev = prev;
+    newNode->next = NULL;
+    Node **next = NULL;
+    if (prev) {
+        newNode->next = prev->next;
+        next = &prev->next;
+    } else {
+        newNode->next = head;
+        next = &head;
     }
-    head = newNode;
-    return true;
+    if (*next) {
+        (*next)->prev = newNode;
+    }
+    *next = newNode;
+    set = true;
+    return set;
 }
 bool LinkedList::addNode(int id, string *data) {
     bool added = false;
@@ -44,10 +54,10 @@ bool LinkedList::addNode(int id, string *data) {
         input.id = id;
         input.data = *data;
         Node *current = head;
-        if (!current) {//empty list
-            added = addHead(&input);
+        if (!current) {//empty list; new head
+            added = setNode(NULL, &input);
         } else if (id < current->data.id) {//new head
-            added = addHead(&input);
+            added = setNode(NULL, &input);
         } else {
             while (id > current->data.id && current->next) {
                 current = current->next;
@@ -56,15 +66,7 @@ bool LinkedList::addNode(int id, string *data) {
                 if (id < current->data.id) {//allows me to use the same code for middle & tail
                     current = current->prev;
                 }
-                Node* newNode = new Node;
-                newNode->data = input;
-                newNode->prev = current;
-                newNode->next = current->next;
-                if (current->next) {
-                    current->next->prev = newNode;
-                }
-                current->next = newNode;
-                added = true;
+                added = setNode(current, &input);
             }
         }
         

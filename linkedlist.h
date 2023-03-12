@@ -20,7 +20,7 @@
         private:
             Node *head;
             void printData(Data*);
-            bool addHead(Data*);
             Node *findNode(int);
+            bool setNode(Node*, Data*);
     };
 #endif
