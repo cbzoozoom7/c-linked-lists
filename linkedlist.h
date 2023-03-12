@@ -21,5 +21,6 @@
             Node *head;
             void printData(Data*);
             bool addHead(Data*);
+            Node *findNode(int);
     };
 #endif

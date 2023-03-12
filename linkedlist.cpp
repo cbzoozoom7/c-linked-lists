@@ -71,27 +71,33 @@ bool LinkedList::addNode(int id, string *data) {
     }
     return added;
 }
-bool LinkedList::deleteNode(int id) {
-    bool deleted = false;
+Node *LinkedList::findNode(int id) {
     Node *current = head;
     if (current) {
         while (current->next && id > current->data.id) {
             current = current->next;
         }
-        if (id == current->data.id) {
-            if (current == head) {
-                head = current->next;
-            } else if (current->prev) {
-                current->prev->next = current->next;
-            }
-            if (current->next) {
-                current->next->prev = current->prev;
-            }
-            delete current;
-            deleted = true;
+        if (id != current->data.id) {
+            current = NULL;
         }
     }
-    
+    return current;
+}
+bool LinkedList::deleteNode(int id) {
+    bool deleted = false;
+    Node *target = findNode(id);
+    if (target) {
+        if (target->prev) {
+            target->prev->next = target->next;
+        } else if (target == head) {
+            head = target->next;
+        }
+        if (target->next) {
+            target->next->prev = target->prev;
+        }
+        delete target;
+        deleted = true;
+    }
     return deleted;
 }
 bool LinkedList::getNode(int id, Data *out) {
