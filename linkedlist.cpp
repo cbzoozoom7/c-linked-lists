@@ -3,21 +3,7 @@
 //Created 8 Mar 2023
 #include "linkedlist.h"
 LinkedList::LinkedList() {
-    //head = NULL;
-    head = new Node;
-    Node *current = head;
-    current->next = nullptr;
-    current->data.id = 0;
-    current->data.data = "0";
-    for (int i = 0; i < DUMMY_LENGTH-1; i++) {
-        Node *newNode = new Node;
-        current->next = newNode;
-        newNode->prev = current;
-        current = newNode;
-        current->next = NULL;
-        current->data.id = i + 1;
-        current->data.data = std::to_string(i + 1);
-    }
+    head = NULL;
 }
 void LinkedList::printData(Data *d) {
     std::cout << d->id << ": \t\"" << d->data << "\"" << std::endl;
@@ -30,7 +16,7 @@ void LinkedList::printList(bool backward) {
             current = current->next;
         }
     }
-    if (backward && current) {//getTail()?
+    if (backward && current) {
         while (current->next) {
             current = current->next;
         }
@@ -44,6 +30,7 @@ bool LinkedList::addHead(Data *d) {
     Node *newNode = new Node;
     newNode->data = *d;
     newNode->next = head;
+    newNode->prev = NULL;
     if (head) {
         head->prev = newNode;
     }
@@ -85,7 +72,27 @@ bool LinkedList::addNode(int id, string *data) {
     return added;
 }
 bool LinkedList::deleteNode(int id) {
-    return false;
+    bool deleted = false;
+    Node *current = head;
+    if (current) {
+        while (current->next && id > current->data.id) {
+            current = current->next;
+        }
+        if (id == current->data.id) {
+            if (current == head) {
+                head = current->next;
+            } else if (current->prev) {
+                current->prev->next = current->next;
+            }
+            if (current->next) {
+                current->next->prev = current->prev;
+            }
+            delete current;
+            deleted = true;
+        }
+    }
+    
+    return deleted;
 }
 bool LinkedList::getNode(int id, Data *out) {
     return false;
