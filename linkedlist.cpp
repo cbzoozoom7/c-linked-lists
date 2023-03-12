@@ -112,7 +112,6 @@ bool LinkedList::getNode(int id, Data *out) {
     return gotten;
 }
 int LinkedList::getCount() {
-    return -1;
     int count = 0;
     Node *current = head;
     if (current) {
