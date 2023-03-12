@@ -139,5 +139,5 @@ LinkedList::~LinkedList() {
     clearList();
 }
 bool LinkedList::exists(int id) {
-    return false;
+    return findNode(id);
 }
